@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 
-const ItemModal = ({ product, onClose }) => {
+const ItemModal = ({ product, onClose, onAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
 
   if (!product) return null;
 
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    if (quantity < product.stock) {
+      setQuantity(quantity + 1);
+    }
   };
 
   const decreaseQuantity = () => {
@@ -18,17 +20,14 @@ const ItemModal = ({ product, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-4">
       <div className="bg-[#0b0d0f] p-6 rounded-lg max-w-[800px] w-full flex flex-col sm:flex-row border-[1px] border-[rgba(255,255,255,0.1)]">
-        {/* Imagen a la izquierda (o arriba en pantallas pequeñas) */}
         <img src={product.img} alt={product.name} className="w-full sm:w-64 h-64 object-cover rounded-lg mb-4 sm:mb-0 sm:mr-6" />
 
-        {/* Información del producto a la derecha */}
         <div className="flex flex-col justify-center text-[#e6e8eb] w-full">
           <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
           <p className="text-[#aebbc9]">{product.desc}</p>
           <p className="text-xl text-[#aebbc9] mb-4">Precio: {product.price}</p>
-      
-          
-          {/* Sección de cantidad */}
+          <p className="text-xl text-[#aebbc9] mb-4">Stock disponible: {product.stock}</p>
+
           <div className="flex items-center mb-6">
             <button
               onClick={decreaseQuantity}
@@ -45,7 +44,6 @@ const ItemModal = ({ product, onClose }) => {
             </button>
           </div>
 
-          {/* Botones: Cerrar y Añadir al carrito */}
           <div className="flex justify-end space-x-4">
             <button
               onClick={onClose}
@@ -54,7 +52,7 @@ const ItemModal = ({ product, onClose }) => {
               Cerrar
             </button>
             <button
-              onClick={() => alert(`Añadido ${quantity} al carrito`)}
+              onClick={() => onAddToCart(product, quantity)}
               className="px-6 py-3 bg-[#3a4c61] text-white rounded-md hover:bg-[#2e3c4d]"
             >
               Añadir al carrito
