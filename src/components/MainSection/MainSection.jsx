@@ -55,4 +55,4 @@ const MainSection = () => {
   );
 };
 
-export default MainSection;
+export default MainSection;
