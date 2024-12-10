@@ -35,7 +35,7 @@ const MainSection = () => {
     {
       title: "Ofertas increíbles",
       description: " ¡Hasta un 30% de descuento en colecciones seleccionadas! Envío gratuito en compras mayores a $5,000.",
-      image: "https://images.homify.com/v1459342914/p/photo/image/1429671/6.jpg" 
+      image: "https://images.pexels.com/photos/1591055/pexels-photo-1591055.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
     }
   ];
 
