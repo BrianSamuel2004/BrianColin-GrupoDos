@@ -13,12 +13,41 @@ const Shop = () => {
   useEffect(() => {
     const fetchAndInitializeProducts = async () => {
       const storedProducts = JSON.parse(localStorage.getItem("products"));
+      let fetchedProducts;
+
       if (storedProducts) {
-        initializeProducts(storedProducts);
+        console.log("Productos del localStorage:", storedProducts);
+        fetchedProducts = storedProducts;
       } else {
-        const fetchedProducts = await getProducts();
-        initializeProducts(fetchedProducts);
+        fetchedProducts = await getProducts();
+        console.log("Productos obtenidos de la API simulada:", fetchedProducts);
       }
+
+      // Reemplazar imágenes según el ID del producto
+      const updatedProducts = fetchedProducts.map((product) => {
+        switch (product.id) {
+          case 1:
+            product.img = "https://images.pexels.com/photos/245208/pexels-photo-245208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+            break;
+          case 2:
+            product.img = "https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+            break;
+          case 3:
+            product.img = "https://images.pexels.com/photos/18920421/pexels-photo-18920421/free-photo-of-pared-muro-planta-mesa.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+            break;
+          case 4:
+            product.img = "https://images.pexels.com/photos/7862491/pexels-photo-7862491.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+            break;
+          case 5:
+            product.img = "https://images.pexels.com/photos/462235/pexels-photo-462235.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+            break;
+          default:
+            break;
+        }
+        return product;
+      });
+
+      initializeProducts(updatedProducts);
       setLoading(false);
     };
 
@@ -131,4 +160,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default Shop;
